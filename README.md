@@ -1,4 +1,4 @@
-# Typescript client GraphQL [graphql-client](https://user-images.githubusercontent.com/43060105/138272664-c977c6f2-ed8e-45c1-927d-ef68f2fa81c0.png)
+# Typescript client GraphQL ![graphql-client](https://user-images.githubusercontent.com/43060105/138272664-c977c6f2-ed8e-45c1-927d-ef68f2fa81c0.png)
 
 This client is an abstraction Apollo client to be use with typed methods.
 
