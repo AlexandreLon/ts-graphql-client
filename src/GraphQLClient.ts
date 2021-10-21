@@ -233,3 +233,5 @@ export class GraphQLClient {
     }
   }
 }
+
+export const queryToString = queryBuilder;

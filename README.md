@@ -14,11 +14,11 @@ This is a Node.js module.
 Before installing, download and install Node.js. Node.js 14.0 or higher is required.
 
 ```bash 
-npm install morest-express
+npm install ts-graphql-client
 ```
 or
 ```bash 
-yarn add morest-express
+yarn add ts-graphql-client
 ```
 
 ## How to use
@@ -99,6 +99,10 @@ query<ResultType, SearchType>(name: string, parameters: ClientParameters<SearchT
 mutate<ResultType, SearchType>(name: string, parameters: ClientParameters<SearchType>, attribute: ClientAttribute<UnArray<ResultType>>, callback: (data: ClientResult<ResultType>, err: ClientError) => void): void;
 mutate<ResultType, SearchType>(name: string, parameters: ClientParameters<SearchType>, attribute: ClientAttribute<UnArray<ResultType>>): Promise<ClientResult<ResultType>>;
 ```
+
+### Note
+
+You can use `queryToString` to parse your typed query to string query without use client
 
 ### Hint
 
