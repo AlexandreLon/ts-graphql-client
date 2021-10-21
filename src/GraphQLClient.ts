@@ -4,7 +4,6 @@ import ApolloClient, {
   gql,
   PresetConfig,
 } from 'apollo-boost';
-import fetch from 'node-fetch';
 
 export interface ClientResult<T> extends ApolloQueryResult<T> {
   toJSON(): T;
@@ -98,7 +97,6 @@ export class GraphQLClient {
     if (typeof options === 'string') {
       options = {
         uri: options,
-        fetch: fetch as any,
         onError: (e) => {
           console.log(e);
           throw new Error('Error from GraphQL');

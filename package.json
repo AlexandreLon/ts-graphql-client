@@ -38,7 +38,6 @@
   "dependencies": {
     "@types/node-fetch": "^2.5.10",
     "apollo-boost": "^0.4.9",
-    "graphql": "^15.6.1",
-    "node-fetch": "^2.6.5"
+    "graphql": "^15.6.1"
   }
 }
