@@ -1,8 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GraphQLClient = exports.EnumType = void 0;
+exports.queryToString = exports.GraphQLClient = exports.EnumType = void 0;
 const apollo_boost_1 = require("apollo-boost");
-const node_fetch_1 = require("node-fetch");
 class EnumType {
     constructor(value) {
         this.value = value;
@@ -51,7 +50,6 @@ class GraphQLClient {
         if (typeof options === 'string') {
             options = {
                 uri: options,
-                fetch: node_fetch_1.default,
                 onError: (e) => {
                     console.log(e);
                     throw new Error('Error from GraphQL');
@@ -138,4 +136,5 @@ class GraphQLClient {
     }
 }
 exports.GraphQLClient = GraphQLClient;
+exports.queryToString = queryBuilder;
 //# sourceMappingURL=GraphQLClient.js.map

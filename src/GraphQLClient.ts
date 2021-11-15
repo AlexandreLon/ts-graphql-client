@@ -25,9 +25,9 @@ export type ClientParameters<T> =
 
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends Array<infer U>
-    ? Array<DeepPartial<U>>
+    ? Array<DeepPartial<U>> | Array<T[P]> | Array<EnumType<T[P]>>
     : T[P] extends ReadonlyArray<infer U>
-    ? ReadonlyArray<DeepPartial<U>>
+    ? ReadonlyArray<DeepPartial<U>> | ReadonlyArray<T[P]> | ReadonlyArray<EnumType<T[P]>>
     : DeepPartial<T[P]> | T[P] | EnumType<T[P]>;
 };
 

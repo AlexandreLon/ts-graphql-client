@@ -110,4 +110,6 @@ To generate types, we suggest to install [graphql-code-generator](https://www.gr
 
 ## License
 
+Property of [traveljuice](https://traveljuice.fr)
+
 [MIT](LICENSE)

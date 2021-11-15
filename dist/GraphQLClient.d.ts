@@ -11,13 +11,14 @@ export declare type ClientParameters<T> = {
     [key: string]: DeepPartial<T>;
 } | DeepPartial<T>;
 export declare type DeepPartial<T> = {
-    [P in keyof T]?: T[P] extends Array<infer U> ? Array<DeepPartial<U>> : T[P] extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : DeepPartial<T[P]> | T[P] | EnumType<T[P]>;
+    [P in keyof T]?: T[P] extends Array<infer U> ? Array<DeepPartial<U>> | Array<T[P]> | Array<EnumType<T[P]>> : T[P] extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> | ReadonlyArray<T[P]> | ReadonlyArray<EnumType<T[P]>> : DeepPartial<T[P]> | T[P] | EnumType<T[P]>;
 };
 export declare type UnArray<T> = T extends Array<infer U> ? U : T;
 export declare class EnumType<T> {
     value: T;
     constructor(value: T);
 }
+declare function queryBuilder<T, U>(name: string, parameters: ClientParameters<T>, attribute: ClientAttribute<UnArray<U>>): string;
 export declare class GraphQLClient {
     private client;
     private verbose;
@@ -33,3 +34,5 @@ export declare class GraphQLClient {
     mutate<ResultType, SearchType>(name: string, parameters: ClientParameters<SearchType>, attribute: ClientAttribute<UnArray<ResultType>>, callback: (data: ClientResult<ResultType>, err: ClientError) => void): void;
     mutate<ResultType, SearchType>(name: string, parameters: ClientParameters<SearchType>, attribute: ClientAttribute<UnArray<ResultType>>): Promise<ClientResult<ResultType>>;
 }
+export declare const queryToString: typeof queryBuilder;
+export {};
