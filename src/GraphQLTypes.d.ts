@@ -1,10 +1,11 @@
-import { ApolloError, ApolloQueryResult, PresetConfig } from "apollo-boost";
+import { ApolloError, ApolloQueryResult, PresetConfig } from 'apollo-boost';
 
 /**
  * Representation of GraphQL Enum
- * Used to know the difference between a simple string and an enum due to javascript can't differenciate 
+ * Used to know the difference between a simple string and an enum due to javascript can't differenciate
  * it and GraphQL doesn't accept quote for enums.
  */
+// eslint-disable-next-line
 export interface EnumType<T> {}
 
 /**
@@ -30,33 +31,31 @@ export type ClientOptions = PresetConfig;
  * Representation of attribute by removing array and replace leaf of object by true
  */
 export type ClientAttribute<T> = {
-    [P in keyof T]?: T[P] extends Array<infer U> | ReadonlyArray<infer U>
-    ? ClientAttribute<U>
-    : T[P] extends Array<infer U> | ReadonlyArray<infer U> | null | undefined
-    ? ClientAttribute<U> | true
-    : T[P] extends Record<string, any>
-    ? ClientAttribute<T[P]>
-    : T[P] extends Record<string, any> | null | undefined
-    ? ClientAttribute<T[P]!> | true
-    : true;
+    [P in keyof T]?: T[P] extends Array<infer U> | ReadonlyArray<infer U>
+        ? ClientAttribute<U>
+        : T[P] extends Array<infer U> | ReadonlyArray<infer U> | null | undefined
+        ? ClientAttribute<U> | true
+        : T[P] extends Record<string, any>
+        ? ClientAttribute<T[P]>
+        : T[P] extends Record<string, any> | null | undefined
+        ? ClientAttribute<T[P]!> | true
+        : true;
 };
 
 /**
  * Adding EnumType as possibility as leaf of object, use to have multiple parameters entries
  */
-export type ClientParameters<T> =
-    | { [key: string]: DeepPartial<T> }
-    | DeepPartial<T>;
+export type ClientParameters<T> = { [key: string]: DeepPartial<T> } | DeepPartial<T>;
 
 /**
  * Adding EnumType as possibility as leaf of object
  */
 export type DeepPartial<T> = {
     [P in keyof T]?: T[P] extends Array<infer U>
-    ? Array<DeepPartial<U>> | Array<T[P]> | Array<EnumType<T[P]>>
-    : T[P] extends ReadonlyArray<infer U>
-    ? ReadonlyArray<DeepPartial<U>> | ReadonlyArray<T[P]> | ReadonlyArray<EnumType<T[P]>>
-    : DeepPartial<T[P]> | T[P] | EnumType<T[P]>;
+        ? Array<DeepPartial<U>> | Array<T[P]> | Array<EnumType<T[P]>>
+        : T[P] extends ReadonlyArray<infer U>
+        ? ReadonlyArray<DeepPartial<U>> | ReadonlyArray<T[P]> | ReadonlyArray<EnumType<T[P]>>
+        : DeepPartial<T[P]> | T[P] | EnumType<T[P]>;
 };
 
 /**

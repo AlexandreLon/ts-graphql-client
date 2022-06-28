@@ -1,4 +1,4 @@
-import { EnumType } from "../GraphQLClient";
+import { EnumType } from '../GraphQLClient';
 
 /**
  * Stringify an objet for GraphQL
@@ -11,18 +11,17 @@ import { EnumType } from "../GraphQLClient";
 export function stringify(obj: unknown): string {
     if (obj === null || obj === undefined) return null;
     if (obj instanceof EnumType) {
-      return `${obj.value}`;
+        return `${obj.value}`;
     }
     if (obj instanceof Date) {
-      return `"${obj.toISOString()}"`;
-    }
-    else if (typeof obj !== 'object' || obj === null) {
-      return JSON.stringify(obj);
+        return `"${obj.toISOString()}"`;
+    } else if (typeof obj !== 'object' || obj === null) {
+        return JSON.stringify(obj);
     } else if (Array.isArray(obj)) {
-      return `[${obj.map((item) => stringify(item)).join(', ')}]`;
+        return `[${obj.map((item) => stringify(item)).join(', ')}]`;
     }
     const props: string = Object.keys(obj)
-      .map((key) => `${key}: ${stringify(obj[key])}`)
-      .join(', ');
+        .map((key) => `${key}: ${stringify(obj[key])}`)
+        .join(', ');
     return `{${props}}`;
 }
