@@ -5,23 +5,35 @@ import { EnumType } from '../GraphQLClient';
  * Difference between JSON.stringify :
  * - If passing EnumType element, return wihout quote
  * - The key of object doesn't have quotes
- * @param obj
+ * @param obj_from_json Object to stringify
+ * @param isRoot Boolean to know if it's the root object or a recursive call
+ * @param type Type of stringify (if it's an attribute or a parameters)
+ * ? Needed to have a different behavior for null and false
  * @returns string
  */
-export function stringify(obj: unknown): string {
-    if (obj === null || obj === undefined) return null;
-    if (obj instanceof EnumType) {
-        return `${obj.value}`;
+export function stringify(obj_from_json: Record<string, any>, type: 'attr' | 'params', isRoot = true): string {
+    if (obj_from_json === undefined) return undefined;
+    if (obj_from_json === null && type === 'params') return 'null';
+    if (obj_from_json === null && type === 'attr') return '';
+    if (obj_from_json instanceof EnumType) {
+        return `${obj_from_json.value}`;
     }
-    if (obj instanceof Date) {
-        return `"${obj.toISOString()}"`;
-    } else if (typeof obj !== 'object' || obj === null) {
-        return JSON.stringify(obj);
-    } else if (Array.isArray(obj)) {
-        return `[${obj.map((item) => stringify(item)).join(', ')}]`;
+    if (obj_from_json instanceof Date) {
+        return `"${obj_from_json.toISOString()}"`;
+    } else if (typeof obj_from_json !== 'object' || obj_from_json === null) {
+        return JSON.stringify(obj_from_json);
+    } else if (Array.isArray(obj_from_json)) {
+        return `[${obj_from_json.map((item) => stringify(item, type, false)).join(', ')}]`;
     }
-    const props: string = Object.keys(obj)
-        .map((key) => `${key}: ${stringify(obj[key])}`)
-        .join(', ');
+    const keys = Object.keys(obj_from_json).filter((key) => {
+        return (
+            (type === 'attr' && obj_from_json[key] !== false && obj_from_json[key] !== null && obj_from_json[key] !== undefined) ||
+            (type === 'params' && obj_from_json[key] !== undefined && obj_from_json[key] !== null)
+        );
+    });
+
+    const props: string = keys.map((key) => `${key}: ${stringify(obj_from_json[key], type, false)}`).join(', ');
+
+    if (props.length === 0 && isRoot) return '';
     return `{${props}}`;
 }
