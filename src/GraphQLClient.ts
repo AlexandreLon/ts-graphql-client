@@ -243,8 +243,3 @@ export class GraphQLClient {
         }
     }
 }
-
-/**
- * Export queryBuilder function to use the stringify function without client
- */
-export const queryToString = queryBuilder;
