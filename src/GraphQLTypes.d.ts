@@ -30,12 +30,14 @@ export type ClientOptions = PresetConfig;
  * Representation of attribute by removing array and replace leaf of object by true
  */
 export type ClientAttribute<T> = {
-    [P in keyof T]?: T[P] extends Array<infer U>
-    ? U extends Record<string, any>
+    [P in keyof T]?: T[P] extends Array<infer U> | ReadonlyArray<infer U>
     ? ClientAttribute<U>
-    : true
+    : T[P] extends Array<infer U> | ReadonlyArray<infer U> | null | undefined
+    ? ClientAttribute<U> | true
     : T[P] extends Record<string, any>
     ? ClientAttribute<T[P]>
+    : T[P] extends Record<string, any> | null | undefined
+    ? ClientAttribute<T[P]!> | true
     : true;
 };
 

@@ -1,7 +1,7 @@
 import ApolloClient, {
   gql,
 } from 'apollo-boost';
-import { queryBuilder } from 'utils/queryBuilder';
+import { queryBuilder } from './utils/queryBuilder';
 
 import {
   ClientResult,
