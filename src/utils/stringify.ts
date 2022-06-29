@@ -28,12 +28,21 @@ export function stringify(obj_from_json: Record<string, any>, type: 'attr' | 'pa
     const keys = Object.keys(obj_from_json).filter((key) => {
         return (
             (type === 'attr' && obj_from_json[key] !== false && obj_from_json[key] !== null && obj_from_json[key] !== undefined) ||
-            (type === 'params' && obj_from_json[key] !== undefined && obj_from_json[key] !== null)
+            (type === 'params' && obj_from_json[key] !== undefined)
         );
     });
 
-    const props: string = keys.map((key) => `${key}: ${stringify(obj_from_json[key], type, false)}`).join(', ');
+    const props: string = keys
+        .map((key) => {
+            const value = stringify(obj_from_json[key], type, false);
+            if (value) {
+                return `${key}: ${value}`;
+            } else {
+                return '';
+            }
+        })
+        .join(', ');
 
-    if (props.length === 0 && isRoot) return '';
+    if (props.length === 0) return '';
     return `{${props}}`;
 }
