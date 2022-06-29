@@ -1,12 +1,13 @@
 # Typescript client GraphQL ![graphql-client](https://user-images.githubusercontent.com/43060105/138272664-c977c6f2-ed8e-45c1-927d-ef68f2fa81c0.png)
 
-This client is an abstraction Apollo client to be used with typed methods.
+This client is an abstraction of Apollo client to be used with typed methods.
 
 ## Features
 
 - Create a client
 - Call mutation GraphQL
 - Call query GraphQL
+- Stringify a query or mutation without use client
 
 ## Installation
 This is a Node.js module.
@@ -83,13 +84,11 @@ constructor(options?: ClientOptions, verbose?: boolean);
 ```typescript
 new GraphQLClient({
     uri: 'http://localhost:3000/graphql',
-    onError: (e) => {
-        console.log(e);
-    },
+    fetch: fetch as any,
 });
 ```
 
-More information about available option, read [apollo-boost](https://www.npmjs.com/package/apollo-boost)
+More information about available options, read [apollo-boost](https://www.npmjs.com/package/apollo-boost)
 
 ### Queries
 
@@ -102,12 +101,14 @@ mutate<ResultType, SearchType>(name: string, parameters: ClientParameters<Search
 
 ### Note
 
-You can use `queryToString` to parse your typed query to string query without use client
+You can use `queryToString` to parse your typed query without use client
 
 ### Hint
 
 To generate types, we suggest to install [graphql-code-generator](https://www.graphql-code-generator.com/)
 
 ## License
+
+Property of [traveljuice](https://traveljuice.fr)
 
 [MIT](LICENSE)
