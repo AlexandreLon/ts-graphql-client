@@ -38,7 +38,7 @@ export type ClientAttribute<T> = {
         : T[P] extends Record<string, any>
         ? ClientAttribute<T[P]>
         : T[P] extends Record<string, any> | null | undefined
-        ? ClientAttribute<T[P]!> | true
+        ? ClientAttribute<T[P]> | true
         : true;
 };
 
