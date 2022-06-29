@@ -28,6 +28,11 @@
     "lint": "eslint . --ext .ts",
     "codegen": "graphql-codegen"
   },
+  "files": [
+    "dist/src/**/*.js",
+    "dist/src/**/*.d.ts",
+    "README.md"
+  ],
   "devDependencies": {
     "@graphql-codegen/cli": "^2.6.2",
     "@graphql-codegen/typescript": "^2.2.4",
