@@ -23,6 +23,7 @@
     "node": ">= 14.0.0"
   },
   "scripts": {
+    "deploy": "tsc && npm publish",
     "tsc": "tsc",
     "test": "jest",
     "lint": "eslint . --ext .ts",
