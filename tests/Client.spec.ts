@@ -115,7 +115,7 @@ describe('Queries to GraphQLPlaceholder', () => {
             .mutate<Post, MutationUpdatePostArgs>(
                 'updatePost',
                 {
-                    postId: 100,
+                    postId: '100',
                     data: {
                         userId: 1,
                         title: 'Hello',

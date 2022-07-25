@@ -45,7 +45,7 @@ export type ClientAttribute<T> = {
 /**
  * Adding EnumType as possibility as leaf of object, use to have multiple parameters entries
  */
-export type ClientParameters<T> = { [key: string]: DeepPartial<T> } | DeepPartial<T>;
+export type ClientParameters<T> = DeepPartial<T>;
 /**
  * Adding EnumType as possibility as leaf of object
  */
@@ -53,10 +53,11 @@ export type DeepPartial<T> = {
     [P in keyof T]?: T[P] extends Array<infer U>
         ? Array<DeepPartial<U>> | Array<T[P]> | Array<EnumType<U>>
         : T[P] extends ReadonlyArray<infer U>
-        ? ReadonlyArray<DeepPartial<U>> | ReadonlyArray<T[P]> | ReadonlyArray<EnumType<U>>
-        : DeepPartial<T[P]> | T[P] | EnumType<T[P]>;
+        ? ReadonlyArray<DeepPartial<U>> | ReadonlyArray<T[P]>
+        : T[P] extends Record<string, number | string>
+        ? DeepPartial<T[P]> | EnumType<T[P]> | T[P]
+        : DeepPartial<T[P]> | T[P];
 };
-
 /**
  * Represente a type without Array
  * Return type if is not array or type of one element else

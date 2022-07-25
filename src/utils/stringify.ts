@@ -11,7 +11,7 @@ import { EnumType } from '../GraphQLClient';
  * ? Needed to have a different behavior for null and false
  * @returns string
  */
-export function stringify(obj_from_json: Record<string, any>, type: 'attr' | 'params', isRoot = true): string {
+export function stringify(obj_from_json: Record<string, any>, type: 'attr' | 'params'): string {
     if (obj_from_json === undefined) return undefined;
     if (obj_from_json === null && type === 'params') return 'null';
     if (obj_from_json === null && type === 'attr') return '';
@@ -23,7 +23,7 @@ export function stringify(obj_from_json: Record<string, any>, type: 'attr' | 'pa
     } else if (typeof obj_from_json !== 'object' || obj_from_json === null) {
         return JSON.stringify(obj_from_json);
     } else if (Array.isArray(obj_from_json)) {
-        return `[${obj_from_json.map((item) => stringify(item, type, false)).join(', ')}]`;
+        return `[${obj_from_json.map((item) => stringify(item, type)).join(', ')}]`;
     }
     const keys = Object.keys(obj_from_json).filter((key) => {
         return (
@@ -34,7 +34,7 @@ export function stringify(obj_from_json: Record<string, any>, type: 'attr' | 'pa
 
     const props: string = keys
         .map((key) => {
-            const value = stringify(obj_from_json[key], type, false);
+            const value = stringify(obj_from_json[key], type);
             if (value) {
                 return `${key}: ${value}`;
             } else {
