@@ -54,8 +54,8 @@ export type DeepPartial<T> = {
         ? Array<DeepPartial<U>> | Array<T[P]> | Array<EnumType<U>>
         : T[P] extends ReadonlyArray<infer U>
         ? ReadonlyArray<DeepPartial<U>> | ReadonlyArray<T[P]>
-        : T[P] extends Record<string, number | string>
-        ? DeepPartial<T[P]> | EnumType<T[P]> | T[P]
+        : T[P] extends number | string
+        ? EnumType<T[P]> | T[P]
         : DeepPartial<T[P]> | T[P];
 };
 /**
