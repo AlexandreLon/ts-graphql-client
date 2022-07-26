@@ -39,7 +39,7 @@ const client = new GraphQLClient('https://api.graphqlplaceholder.com/')
 
 async function main() {
     const users = await client
-        .query<{ data: User[] }, never>(
+        .query<{ data: User[] }, {}>(
             'users',
             {},
             {
