@@ -24,7 +24,7 @@
   },
   "scripts": {
     "deploy": "tsc && npm publish",
-    "tsc": "tsc",
+    "build": "tsc",
     "test": "jest",
     "lint": "eslint . --ext .ts",
     "codegen": "graphql-codegen"
